@@ -1,6 +1,6 @@
 # NAVIGATION-SYSTEM-FOR-VISUALLY-CHALLENGED-PEOPLES
 
-## INTRODUCTION
+## 📘 Introduction
  In a world dominated by visual cues and landmarks, those who are visually impaired face unique 
  challenges when it comes to navigating their surroundings. The simple act of walking down the 
  street, entering a building, or even finding their way in an unfamiliar place can be a daunting task. 
