@@ -31,4 +31,16 @@ Location Tracking:
 4. Compact and Wearable Design
 
 ## ⬇ HOW TO SET UP THE PROJECT:
+1. CLONE THE REPOSITORY:
+ git clone https://github.com/P-MUHAMMADHU-NAZAR-ALI/NAVIGATION-SYSTEM-FOR-VISUALLY-CHALLENGED-PEOPLES.git
+2. CONNECTIONS:
+Refer the connection is Connection.png in Sample connections folder.
+3. Source Code:
+Refer the source code in Templates folder.
+
+That's it! 🎉 Navigation System for Visually challenged people is ready to use.
+
+## 📝 License:
+   This project is licensed under the MIT License. See the LICENSE file for more details.
+
 
