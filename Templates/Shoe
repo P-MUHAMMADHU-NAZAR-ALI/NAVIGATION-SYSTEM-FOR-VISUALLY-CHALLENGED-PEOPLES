@@ -1,1 +1,117 @@
+// Define the buzzer pins for each sensor
+const int buzzerPin1 = 8;
+const int buzzerPin2 = 9;
+const int buzzerPin3 = 6;
+const int buzzerPin4 = 7;
 
+// Define the ultrasonic sensor pins
+const int trigPin1 = 10; // Trigger pin for sensor 1
+const int echoPin1 = 11; // Echo pin for sensor 1
+const int trigPin2 = 12; // Trigger pin for sensor 2
+const int echoPin2 = 13; // Echo pin for sensor 2
+const int trigPin3 = 4;  // Trigger pin for sensor 3
+const int echoPin3 = 5;  // Echo pin for sensor 3
+const int trigPin4 = 2;  // Trigger pin for sensor 4
+const int echoPin4 = 3;  // Echo pin for sensor 4
+
+// Define the maximum distance for object detection (in centimeters)
+const int maxDistance = 10; // You can adjust this value as needed
+
+void setup() {
+  // Set the buzzer pins as OUTPUT
+  pinMode(buzzerPin1, OUTPUT);
+  pinMode(buzzerPin2, OUTPUT);
+  pinMode(buzzerPin3, OUTPUT);
+  pinMode(buzzerPin4, OUTPUT);
+
+  // Set the trigger pins as OUTPUT and echo pins as INPUT
+  pinMode(trigPin1, OUTPUT);
+  pinMode(echoPin1, INPUT);
+  pinMode(trigPin2, OUTPUT);
+  pinMode(echoPin2, INPUT);
+  pinMode(trigPin3, OUTPUT);
+  pinMode(echoPin3, INPUT);
+  pinMode(trigPin4, OUTPUT);
+  pinMode(echoPin4, INPUT);
+
+  // Initialize serial communication for debugging
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Measure the distance and control the buzzers for each sensor
+  playBuzzer(measureDistance(trigPin1, echoPin1), buzzerPin1, 1);
+  playBuzzer(measureDistance(trigPin2, echoPin2), buzzerPin2, 2);
+  playBuzzer(measureDistance(trigPin3, echoPin3), buzzerPin3, 3);
+  playBuzzer(measureDistance(trigPin4, echoPin4), buzzerPin4, 4);
+
+  // Add a small delay to avoid overlapping signals
+  delay(200);
+}
+
+int measureDistance(int trigPin, int echoPin) {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  long duration = pulseIn(echoPin, HIGH);
+  int distance = duration / 29 / 2;
+
+  return distance;
+}
+
+void playBuzzer(int distance, int buzzerPin, int buzzerId) {
+  if (distance < maxDistance) {
+    // Object detected, play a custom tune for the buzzer
+    switch (buzzerId) {
+      case 1:
+        playTune1(buzzerPin);
+        break;
+      case 2:
+        playTune2(buzzerPin);
+        break;
+      case 3:
+        playTune3(buzzerPin);
+        break;
+      case 4:
+        playTune4(buzzerPin);
+        break;
+    }
+  } else {
+    // No object detected, turn off the buzzer
+    noTone(buzzerPin);
+  }
+}
+
+// Define custom tunes for each buzzer
+void playTune1(int buzzerPin) {
+  tone(buzzerPin, 800); // Tune 1: Play a moderate-pitched tone (800 Hz)
+  delay(150);
+  noTone(buzzerPin);
+}
+
+void playTune2(int buzzerPin) {
+  for (int i = 200; i <= 1000; i += 50) {
+    tone(buzzerPin, i);
+    delay(50);
+  }
+  noTone(buzzerPin);
+  delay(500);
+}
+
+void playTune3(int buzzerPin) {
+  tone(buzzerPin, 500); // Tune 3: Play a low-pitched tone (500 Hz)
+  delay(200);
+  noTone(buzzerPin);
+}
+
+void playTune4(int buzzerPin) {
+  for (int i = 1000; i >= 200; i -= 50) {
+    tone(buzzerPin, i);
+    delay(50);
+  }
+  noTone(buzzerPin);
+  delay(500);
+}
